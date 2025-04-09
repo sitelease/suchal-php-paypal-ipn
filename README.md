@@ -1,66 +1,22 @@
 PHP-PayPal-IPN
 ==============
 
-**WARNING:** Version 2.5.1+ has a different namespace! It is now `wadeshuler\paypalipn`!
+Forked from [Suchal's Paypal IPN package](https://github.com/suchal/php-paypal-ipn)
 
-Forked from: https://github.com/Quixotix/PHP-PayPal-IPN/
-
-Forked from the great Quixotix PayPal IPN script, which is no longer maintained. From now on, you should use this repo instead, as I have adddressed it's issues and brought it back to life.
-
-This fork fixes the known issues with the original repo, as well as updates the code according to PayPal's documentation, and today's standards.
-
-**NOTICE: The SSLv3 issue is fixed!**
-
-**This has been fixed and works out of the box, the old `Quixotix` repo no longer works!**
-
-**PLEASE NOTE: I am still in the works of cleaning this package up. These docs still have remnants of the original repo, so please bare with me.** I am not trying to remove his name, and I give Quixotix full credit for his original work. His repo just hasn't been updated since 2012, and it's now 2015 and it isn't maintained anymore. If there is anything I need to do, or reword, to ensure he is appropriately credited just let me know.
-
-@TODO Recode to follow best practices (camelCase, etc).
-
-@TODO Finish updating Readme and Documentation.
-
-@TODO Add security to verify payment status is completed and owner's PayPal email address.
-
-@TODO Update examples
-
-**Requires:** PHP >= 5.3
-
-A PayPal Instant Payment Notification (IPN) class for PHP >= 5.3 (if you aren't on at least 5.3, then I can't help you! I will not support dead versions!)
+A PayPal Instant Payment Notification (IPN) class
 
 Use the `IpnListener` class in your PHP IPN script to handle the encoding of POST data, post back to PayPal, and parsing of the response from PayPal.
 
 Install with Composer
 ---------------------
-
-Composer is now supported!
-
-Packagist: https://packagist.org/packages/wadeshuler/php-paypal-ipn
-
 composer.json
-
-    {
-        "require": {
-            "wadeshuler/php-paypal-ipn": "*"
-        }
+```json
+{
+    "require": {
+        "suchal/php-paypal-ipn": "*"
     }
-
-
-    use wadeshuler\paypalipn\IpnListener;
-    $listener = new IpnListener();
-
-    // default options
-    $listener->use_sandbox = true;
-    $listener->use_curl = true;
-    $listener->follow_location = false;
-    $listener->timeout = 30;
-    $listener->verify_ssl = true;
-
-    if ($verified = $listener->processIpn())
-    {
-        // handle successful ipn request
-    } else {
-        // handle invalid ipn request
-    }
+}
+```
 
 Please see the example file in `example\ipn.php`
 
@@ -77,7 +33,6 @@ Features
   method for use in emails and logs to administrators.
 * Throws various exceptions to differentiate between common errors in code or
   server configuration versus invalid IPN responses.
-
 
 Getting Started
 ---------------
@@ -104,7 +59,7 @@ below. For a more thoroughly documented example, take a look at the
 
     require_once('vendor/autoload.php');
 
-    $listener = new \wadeshuler\paypalipn\IpnListener();
+    $listener = new \suchal\paypalipn\IpnListener();
     $listener->use_sandbox = true;
 
     if ($verified = $listener->processIpn())
@@ -198,3 +153,8 @@ directly in your ipn script.
     custom                   xyz123
     charset                  windows-1252
     verify_sign              Ah5rOpfPGo5g6FNg95DMPybP51J5AUEdXS1hqyRAP6WYYwaixKNDgQRR
+
+TODO
+-------------
+
+@TODO Add security to verify payment status is completed and owner's PayPal email address.

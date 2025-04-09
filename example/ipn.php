@@ -2,7 +2,7 @@
 /**
  *  PHP-PayPal-IPN Example
  *
- *  This shows a basic example of how to use the IPNListener() PHP class to
+ *  This shows a basic example of how to use the IpnListener() PHP class to
  *  implement a PayPal Instant Payment Notification (IPN) listener script.
  *
  *  This package is available at GitHub:
@@ -17,16 +17,14 @@
  */
 
 // include the IpnListener Class, unless it's in your autoload
-require_once( dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'IpnListener.php');
+require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'IpnListener.php');
 
-use wadeshuler\paypalipn\IpnListener;
+use suchal\paypalipn\IpnListener;
 
 $listener = new IpnListener();
 $listener->use_sandbox = true;      // Only needed for testing (sandbox), else omit or set false
 
-if ($verified = $listener->processIpn())
-{
-
+if ($verified = $listener->processIpn()) {
     // Valid IPN
     /*
         1. Check that $_POST['payment_status'] is "Completed"
@@ -40,14 +38,11 @@ if ($verified = $listener->processIpn())
     // Feel free to modify path and filename. Make SURE THE DIRECTORY IS WRITEABLE!
     // For security reasons, you should use a path above/outside of your webroot
     file_put_contents('ipn_success.log', print_r($transactionData, true) . PHP_EOL, LOCK_EX | FILE_APPEND);
-
 } else {
-
     // Invalid IPN
     $errors = $listener->getErrors();
 
     // Feel free to modify path and filename. Make SURE THE DIRECTORY IS WRITEABLE!
     // For security reasons, you should use a path above/outside of your webroot
     file_put_contents('ipn_errors.log', print_r($errors, true) . PHP_EOL, LOCK_EX | FILE_APPEND);
-
 }

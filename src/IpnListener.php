@@ -28,7 +28,7 @@ class IpnListener
 
     /**
      *  If true, the recommended cURL PHP library is used to send the post back
-     *  to PayPal. If flase then fsockopen() is used. Default true.
+     *  to PayPal. If false then fsockopen() is used. Default true.
      *
      *  @var boolean
      */
@@ -65,9 +65,9 @@ class IpnListener
      */
     public $verify_ssl = true;
 
-    private $_errors = array();
+    private $_errors = [];
     private $post_data;
-    private $rawPostData;                // raw data from php://input
+    private $rawPostData; // raw data from php://input
     private $post_uri = '';
     private $response_status = '';
     private $response = '';
@@ -313,7 +313,7 @@ class IpnListener
                 $this->post_data = $raw_post_data;                                // use post array because it's same as $_POST
             }
 
-            $myPost = array();
+            $myPost = [];
             if (isset($raw_post_array)) {
                 foreach ($raw_post_array as $keyval) {
                     $keyval = explode('=', $keyval);
@@ -327,11 +327,7 @@ class IpnListener
             $req = 'cmd=_notify-validate';
 
             foreach ($myPost as $key => $value) {
-                if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1) {
-                    $value = urlencode(stripslashes($value));
-                } else {
-                    $value = urlencode($value);
-                }
+                $value = urlencode($value);
                 $req .= "&$key=$value";
             }
 
@@ -350,7 +346,7 @@ class IpnListener
             $res = trim(end($tokens));
             if (strcmp($res, "VERIFIED") == 0) {
                 return true;
-            } else if (strcmp($res, "INVALID") == 0) {
+            } elseif (strcmp($res, "INVALID") == 0) {
                 return false;
             } else {
                 throw new Exception("Unexpected response from PayPal.");
