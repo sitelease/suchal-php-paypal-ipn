@@ -4,7 +4,7 @@
     "homepage": "https://github.com/suchal/php-paypal-ipn",
     "keywords": ["paypal", "ipn", "php"],
     "license": "GPL-2.0+",
-    "version": "2.5.2",
+    "version": "2.5.3",
     "authors": [
         {
             "name": "Suchal",
